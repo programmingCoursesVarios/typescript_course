@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  
+  backend_type:
+    build:
+      context: $HOME/repo/typescript_course/backend/
+      dockerfile: $HOME/repo/typescript_course/local_deploy/Dockerfile_node
+    container_name: angular
+    volumes:
+      - $HOME/repo/typescript_course/backend/:/code
+      - /code/node_modules
+    ports:
+      - "4000:4000"
+    networks:
+      - mynetwork
+
+
+networks:
+  mynetwork:
+    driver: bridge

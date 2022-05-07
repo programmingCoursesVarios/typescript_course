@@ -1,0 +1,15 @@
+FROM node:14.18
+
+# RUN npm install -g @angular/cli
+WORKDIR /code
+COPY package.json /code/
+
+# with Yarn
+# COPY web/yarn.lock /code/
+# RUN yarn install --frozen-lockfile
+
+COPY . .
+RUN npm install
+EXPOSE 4000
+CMD [ "npm", "start"]
+
