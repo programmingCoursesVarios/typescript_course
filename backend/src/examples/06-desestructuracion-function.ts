@@ -11,7 +11,7 @@
     
  */
 
-interface Producto {
+export interface Producto {
     desc: string;
     precio: number;
 }
@@ -71,7 +71,7 @@ console.log('ISV1: ', isv1);
 
 
 // -----------------------------------------------------
-function calculaISV2 ( productos: Producto[] ): [number, number] {
+export function calculaISV2 ( productos: Producto[] ): [number, number] {
 
     let total = 0;
 

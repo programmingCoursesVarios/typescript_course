@@ -1,94 +1,35 @@
+// Decoradores
 
-/**
- * tipado estatico: nos asegura que la data no vaya a cambiar
- * un arreglo puede tener cierto tipos de valores
- * regula la forma en como la información entra y sale j
- * 
- */
 
 /*
-    Desestructuracion de argumentos en una funcion
-    
+   Los decoradores sirven para cambiar las clases en momento de que son definidas o
+        * en momento de traducir a otra cosa va a "extender" internamente esas funcionalidades que queremos implementar
+
+
+
+  Angular usa mucho los decoradores para cambiar las clases
  */
 
-interface Producto {
-    desc: string;
-    precio: number;
+
+function classDecorator<T extends { new (...args: any[]): {} }> ( 
+    constructor: T
+) {
+    return class extends constructor {
+        newProperty = "New property";
+        hello = "override";
+    };
 }
 
-const telefono: Producto = {
-    desc: 'Nokia A1',
-    precio: 123
-};
 
-const tableta: Producto = {
-    desc: 'iPad Air',
-    precio: 234
+@classDecorator
+class MiSuperClase {
+    public miPropiedad: string = 'AAA000';
+
+    imprimir() {
+        console.log('Hola Mundo');
+    }
 }
 
-function calculaISV ( productos: Producto[] ): number {
 
-    let total = 0;
-
-    // aquí producto ya sabe que es de tipo producto
-    // aqui no hay desestrucutración,podemos hacerlo ya que solo usamos el precio para computar
-    productos.forEach( ( producto ) => {
-       total += producto.precio; 
-    })
-
-    return total * 0.35;
-}
-
-const articulos: Producto[] = [ telefono, tableta ];
-const isv = calculaISV( articulos );
-
-console.log('ISV: ', isv);
-
-
-
-
-// -----------------------------------------------------
-
-function calculaISV1 ( productos: Producto[] ): number {
-
-    let total = 0;
-
-    // aquí producto ya sabe que es de tipo producto
-    // aqui hay desestrucutración,podemos hacerlo ya que solo usamos el precio para computar
-    // por cada producto desestructuramos el objeto y tomamos el precio
-    productos.forEach( ( { precio } ) => {
-       total += precio; 
-    })
-
-    return total * 0.35;
-}
-
-const isv1 = calculaISV1( articulos );
-
-
-console.log('ISV1: ', isv1);
-
-
-
-// -----------------------------------------------------
-function calculaISV2 ( productos: Producto[] ): [number, number] {
-
-    let total = 0;
-
-    // aquí producto ya sabe que es de tipo producto
-    // aqui hay desestrucutración,podemos hacerlo ya que solo usamos el precio para computar
-    // por cada producto desestructuramos el objeto y tomamos el precio
-    productos.forEach( ( { precio } ) => {
-       total += precio; 
-    })
-
-    return [total, total * 0.35];
-}
-
-// hacemo desestrucuración del array
-const [ total, isv2 ] = calculaISV2( articulos );
-
-
-console.log('total: ', total);
-console.log('ISV1: ', isv2);
+console.log( MiSuperClase );
 
